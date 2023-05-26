@@ -64,7 +64,7 @@ const Feed = () => {
 
       <PromptCardList 
         // {/* parsing the fetched posts */}
-        data={[posts]}
+        data={posts}
         handleTagClick={() => {}}
       />
     </section>
