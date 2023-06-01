@@ -62,7 +62,7 @@ const PromptCard = ({post, handleTagClick, handleEdit, handleDelete }) => {
         // checks if a tag exists and if we do then we handle it
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
-        {post.tag}
+        #{post.tag.charAt(0)==='#' ? (post.tag.replace('#','')) : post.tag}
       </p>
 
       {session?.user.id === post.creator._id &&

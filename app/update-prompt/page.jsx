@@ -1,21 +1,22 @@
-'use client'
+"use client";
 
-import { useEffect , useState} from 'react'
-import { useSession } from 'next-auth/react'
-import { useRouter , useSearchParams } from 'next/navigation'
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-import Form from '@components/Form'
+import Form from "@components/Form";
 
-const EditPrompt = () => {
+const UpdatePrompt = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const promptId = searchParams.get('id');
-  
-  const [submitting, setSubmitting] = useState(false);
-  const [post, setPost ] = useState({
-    prompt: '',
-    tag: '',
-  });
+  const promptId = searchParams.get("id");
+
+  const [post, setPost] = useState({ prompt: "", tag: "", });
+  const [submitting, setIsSubmitting] = useState(false);
+  // const [editCount, setEditCount] = useState(0);
+
+  // const increaseEditCount = () => {
+  //   setEditCount(editCount => editCount + 1)
+  // };
 
   useEffect(() => {
     const getPromptDetails = async () => {
@@ -30,41 +31,42 @@ const EditPrompt = () => {
 
     if (promptId) getPromptDetails();
   }, [promptId]);
-  
 
-//   const createPrompt = async (e) => {
-//     e.preventDefault();
-//     setSubmitting(true);
+  const updatePrompt = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-//     try {
-//         const response = await fetch('/api/prompt/new', {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 prompt: post.prompt,
-//                 userId: session?.user.id,
-//                 tag: post.tag
-//             })
-//         })
+    if (!promptId) return alert("PromptId Not Found!");
 
-//         if(response.ok) {
-//             router.push('/')
-//         }
-//     } catch (error) {
-//         console.log(error)
-//     } finally {
-//         setSubmitting(false);
-//     }
-//   }
+    try {
+      const response = await fetch(`/api/prompt/${promptId}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          prompt: post.prompt,
+          tag: post.tag,
+        }),
+      });
+
+      if (response.ok) {
+        router.push("/");
+        //increaseEditCount();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Form
-      type="Edit"
+      type='Edit'
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={() => {}}      
+      handleSubmit={updatePrompt}
     />
-  )
-}
+  );
+};
 
-export default EditPrompt
+export default UpdatePrompt;
