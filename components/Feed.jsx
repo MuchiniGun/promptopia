@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 import PromptCard from './PromptCard'
 
 // Creating this component here because it'll only be used in here
 const PromptCardList = ({ data, handleTagClick }) => {
-  const { data:session} = useSession();
+  {/*const { data:session} = useSession();*/}
 
   return (
     <div className='mt-16 prompt_layout'>
@@ -14,7 +14,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
       {/* Fetch the data first */}
       {/* Now we'll map over the data and show the cards */}
 
-      { session?.user ? (data.map((post) => (
+      {/*{ session?.user ? (data.map((post) => (
         <PromptCard 
           key={post._id}
           post={post}
@@ -25,7 +25,15 @@ const PromptCardList = ({ data, handleTagClick }) => {
         <div className='hidden sm:block'><h1>Sign in to see feed</h1></div>
         <div><h1>Sign in to see feed</h1></div>
         <div className='hidden xl:block'><h1>Sign in to see feed</h1></div>
-        </div>)}
+      </div>)}*/}
+
+      {data.map((post) => (
+        <PromptCard
+          key={post._id}
+          post={post}
+          handleTagClick={handleTagClick}
+        />
+      ))}
   
 
   </div>
