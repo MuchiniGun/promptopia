@@ -1,5 +1,6 @@
 
 import Feed from '@components/Feed'
+import { Analytics } from '@vercel/analytics/react'
 
 const Home = () => {
   return (
