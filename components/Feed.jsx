@@ -22,9 +22,9 @@ const PromptCardList = ({ data, handleTagClick }) => {
         />
       ))) : 
       (<div className='opacity-30'>
+        <div className='hidden sm:block'><h1>Sign in to see feed</h1></div>
         <div><h1>Sign in to see feed</h1></div>
-        <div><h1>Sign in to see feed</h1></div>
-        <div><h1>Sign in to see feed</h1></div>
+        <div className='hidden xl:block'><h1>Sign in to see feed</h1></div>
         </div>)}
   
 
@@ -63,6 +63,7 @@ const Feed = () => {
   };
 
   const handleSearchChange = (e) => {
+    e.preventDefault(); // stop from refresh
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
@@ -92,7 +93,7 @@ const Feed = () => {
       value={searchText}
       onChange={handleSearchChange}
       required
-      className='search_input peer'
+      className='search_input peer focus:none'
     />
   </form>)}
       
