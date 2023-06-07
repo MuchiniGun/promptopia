@@ -1,32 +1,12 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-// import { useSession } from 'next-auth/react'
-import PromptCard from './PromptCard'
+import { useState, useEffect } from "react";
 
-// Creating this component here because it'll only be used in here
+import PromptCard from "./PromptCard";
+
 const PromptCardList = ({ data, handleTagClick }) => {
-  {/*const { data:session} = useSession();*/}
-
   return (
     <div className='mt-16 prompt_layout'>
-    
-      {/* Fetch the data first */}
-      {/* Now we'll map over the data and show the cards */}
-
-      {/*{ session?.user ? (data.map((post) => (
-        <PromptCard 
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
-      ))) : 
-      (<div className='opacity-30'>
-        <div className='hidden sm:block'><h1>Sign in to see feed</h1></div>
-        <div><h1>Sign in to see feed</h1></div>
-        <div className='hidden xl:block'><h1>Sign in to see feed</h1></div>
-      </div>)}*/}
-
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -34,15 +14,12 @@ const PromptCardList = ({ data, handleTagClick }) => {
           handleTagClick={handleTagClick}
         />
       ))}
-  
-
-  </div>
+    </div>
   );
 };
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
-  const { data:session} = useSession();
 
   // Search states
   const [searchText, setSearchText] = useState("");
@@ -71,7 +48,6 @@ const Feed = () => {
   };
 
   const handleSearchChange = (e) => {
-    e.preventDefault(); // stop from refresh
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
@@ -93,18 +69,16 @@ const Feed = () => {
 
   return (
     <section className='feed'>
-
-    {session?.user && (<form className='relative w-full flex-center'>
-    <input
-      type='text'
-      placeholder='Search for a tag or a username'
-      value={searchText}
-      onChange={handleSearchChange}
-      required
-      className='search_input peer focus:none'
-    />
-  </form>)}
-      
+      <form className='relative w-full flex-center'>
+        <input
+          type='text'
+          placeholder='Search for a tag or a username'
+          value={searchText}
+          onChange={handleSearchChange}
+          required
+          className='search_input peer'
+        />
+      </form>
 
       {/* All Prompts */}
       {searchText ? (
