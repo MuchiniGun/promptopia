@@ -1,6 +1,10 @@
 import { connectToDB } from "@utils/database";
 import Prompt from '@models/prompt'
 
+// updating frequently : 
+export const revalidate = 1;
+export const dynamic = "force-dynamic";
+
 export const GET = async (request) => {
     try {
         await connectToDB();
@@ -12,6 +16,3 @@ export const GET = async (request) => {
         return new Response("Failed to fetch all prompts", {status: 500})
     }
 }
-
-// updating frequently : 
-export const revalidate = 1
